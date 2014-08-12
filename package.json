@@ -1,0 +1,22 @@
+{
+  "name": "hapi-server",
+  "version": "1.0.0",
+  "author": "Timo Behrmann",
+  "description": "Yet another hapi server",
+  "license": "MIT",
+  "dependencies": {
+    "hapi": "*",
+    "hapi-swaggered": "*",
+    "hapi-swaggered-ui": "*",
+    "hoek": "*",
+    "joi": "*",
+    "lodash": "*",
+    "winston": "*"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "main": "server.js"
+}
