@@ -4,7 +4,14 @@ var hapiSwaggered = require('hapi-swaggered');
 var hapiSwaggeredUi = require('hapi-swaggered-ui');
 
 var server = new Hapi.Server();
-server.connection({ port: 8000, labels: ['api'] });
+server.connection({ port: 8000, labels: ['api'], app: {
+	swagger: {
+		info: {
+			title: 'Example API2',
+			description: 'Tiny hapi-swaggered example2'
+		}
+	}
+} });
 
 server.register({
 	register: hapiSwaggered,
@@ -86,88 +93,6 @@ server.route({
 		}
 	}
 });
-
-server.route({
-	path: '/music/simple',
-	method: 'POST',
-	config: {
-		tags: ['api'],
-		validate: {
-			payload: Joi.object({
-				name: Joi.string().required()
-			}).description('test').options({className: 'MyClass'})
-		},
-		handler: function(request, reply) {
-			reply({});
-		}
-	}
-});
-
-server.route({
-	path: '/music/nested',
-	method: 'POST',
-	config: {
-		tags: ['api'],
-		validate: {
-			payload: Joi.object({
-				name: Joi.string().required(),
-				childs: Joi.object({
-					name: Joi.string().required()
-				}).required()
-			}).description('test2').options({className: 'MyClass2'})
-		},
-		handler: function(request, reply) {
-			reply({});
-		}
-	}
-});
-server.route({
-	path: '/music/nestedArray',
-	method: 'POST',
-	config: {
-		tags: ['api'],
-		validate: {
-			payload: Joi.object({
-				name: Joi.string().required(),
-				childs: Joi.array().includes(Joi.object({
-					name: Joi.string().required()
-				})).required()
-			}).description('test2').options({className: 'MyClass2'})
-		},
-		handler: function(request, reply) {
-			reply({});
-		}
-	}
-});
-
-/*
-server.route({
-	method: 'POST',
-	path: '/music/upload',
-	config: {
-		tags: ['api'],
-		validate: {
-			payload: Joi.object().keys({
-				name: Joi.string(),
-				album: Joi.string(),
-				file: Joi.any().options({
-					swaggerType: 'file'
-				})
-			})
-		},
-		handler: function(request, reply) {
-			// handle file upload as specified in payload.output
-			reply({
-				name: request.payload.name
-			});
-		},
-		payload: {
-			allow: 'multipart/form-data',
-			output: 'data'
-		}
-	}
-});
-*/
 
 server.start(function() {
 	console.log('started on http://localhost:8000');
