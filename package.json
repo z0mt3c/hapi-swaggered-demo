@@ -5,7 +5,7 @@
   "description": "Yet another hapi server",
   "license": "MIT",
   "dependencies": {
-    "hapi": "*",
+    "hapi": "8.0.0-rc2",
     "hapi-swaggered": "*",
     "hapi-swaggered-ui": "*",
     "hoek": "*",
@@ -18,5 +18,5 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "main": "server.js"
+  "main": "example.js"
 }
