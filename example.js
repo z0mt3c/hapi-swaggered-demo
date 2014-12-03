@@ -5,12 +5,12 @@ var hapiSwaggeredUi = require('hapi-swaggered-ui');
 
 var server = new Hapi.Server();
 server.connection({ port: 8000, labels: ['api'], app: {
-	swagger: {
-		info: {
-			title: 'Example API2',
-			description: 'Tiny hapi-swaggered example2'
+		swagger: {
+			info: {
+				title: 'Example API2',
+				description: 'Tiny hapi-swaggered example2'
+			}
 		}
-	}
 } });
 
 server.register({
@@ -26,7 +26,7 @@ server.register({
 	}
 }, {
 	select: 'api',
-	route: {
+	routes: {
 		prefix: '/swagger'
 	}
 }, function(err) {
@@ -47,7 +47,7 @@ server.register({
 	}
 }, {
 	select: 'api',
-	route: {
+	routes: {
 		prefix: '/docs'
 	}
 }, function(err) {
@@ -86,7 +86,7 @@ server.route({
 			params: {
 				album: Joi.string().required().description('test'),
 				song: Joi.string().required()
-			}
+	}
 		},
 		handler: function(request, reply) {
 			reply({});
