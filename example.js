@@ -3,98 +3,94 @@ var Joi = require('joi');
 var hapiSwaggered = require('hapi-swaggered');
 var hapiSwaggeredUi = require('hapi-swaggered-ui');
 
-var server = Hapi.createServer('localhost', 8000, {
-	labels: ['api']
+var server = new Hapi.Server();
+server.connection({
+    port: 8000,
+    labels: ['api']
 });
 
-server.pack.register({
-	plugin: hapiSwaggered,
-	options: {
-		apiVersion: '999',
-		descriptions: {
-			'music': 'Example music description'
-		},
-		info: {
-			title: 'Example API',
-			description: 'Tiny hapi-swaggered example'
-		}
-	}
+server.register({
+    register: hapiSwaggered,
+    options: {
+        descriptions: {
+            'foobar': 'Example foobar description'
+        },
+        info: {
+            title: 'Example API',
+            description: 'Tiny hapi-swaggered example'
+        }
+    }
 }, {
-	select: 'api',
-	route: {
-		prefix: '/swagger'
-	}
+    select: 'api',
+    routes: {
+        prefix: '/swagger'
+    }
 }, function(err) {
-	if (err) {
-		throw err;
-	}
+    if (err) {
+        throw err;
+    }
 });
 
-server.pack.register({
-	plugin: hapiSwaggeredUi,
-	options: {
-		title: 'Example API',
-		authorization: {
-			field: 'apiKey',
-			scope: 'query' // header works as well
-			// valuePrefix: 'bearer '// prefix incase
-		}
-	}
+server.register({
+    register: hapiSwaggeredUi,
+    options: {
+        title: 'Example API',
+        authorization: {
+            field: 'apiKey',
+            scope: 'query' // header works as well
+            // valuePrefix: 'bearer '// prefix incase
+        }
+    }
 }, {
-	select: 'api',
-	route: {
-		prefix: '/docs'
-	}
+    select: 'api',
+    routes: {
+        prefix: '/docs'
+    }
 }, function(err) {
-	if (err) {
-		throw err;
-	}
+    if (err) {
+        throw err;
+    }
+});
+
+
+server.route({
+    path: '/',
+    method: 'GET',
+    handler: function(request, reply) {
+        reply.redirect('/docs');
+    }
 });
 
 server.route({
-	path: '/music/{album}/{song}',
-	method: 'GET',
-	config: {
-		tags: ['api'],
-		validate: {
-			params: {
-				album: Joi.string().required(),
-				song: Joi.string().required()
-			}
-		},
-		handler: function(request, reply) {
-			reply({});
-		}
-	}
+    path: '/foobar/test',
+    method: 'GET',
+    config: {
+        tags: ['api'],
+        description: 'My route description',
+        notes: 'My route notes',
+        handler: function(request, reply) {
+            reply({});
+        }
+    }
 });
 
 server.route({
-	method: 'POST',
-	path: '/music/upload',
-	config: {
-		tags: ['api'],
-		validate: {
-			payload: Joi.object().keys({
-				name: Joi.string(),
-				album: Joi.string(),
-				file: Joi.any().options({
-					swaggerType: 'file'
-				})
-			})
-		},
-		handler: function(request, reply) {
-			// handle file upload as specified in payload.output
-			reply({
-				name: request.payload.name
-			});
-		},
-		payload: {
-			allow: 'multipart/form-data',
-			output: 'data'
-		}
-	}
+    path: '/foobar/{foo}/{bar}',
+    method: 'GET',
+    config: {
+        tags: ['api'],
+        validate: {
+            params: {
+                foo: Joi.string().required().description('test'),
+                bar: Joi.string().required()
+            }
+        },
+        handler: function(request, reply) {
+            reply({});
+        }
+    }
 });
 
 server.start(function() {
-	console.log('started on http://localhost:8000');
+    console.log('started on http://localhost:8000');
 });
