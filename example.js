@@ -91,6 +91,25 @@ server.route({
     }
 });
 
+server.route({
+    method: 'POST',
+    path: '/test/fileUpload',
+    config: {
+        tags: ['api'],
+        validate: {
+            payload: Joi.object().keys({ name: Joi.string(), file: Joi.any().options({ swaggerType: 'file' }) })
+        },
+        handler: function (request, reply) {
+            // handle file upload as specified in payload.output
+            reply({ name: request.payload.name });
+        },
+        payload: {
+            allow: 'multipart/form-data',
+            output: 'data'
+        }
+    }
+});
+
 server.start(function() {
     console.log('started on http://localhost:8000');
 });
