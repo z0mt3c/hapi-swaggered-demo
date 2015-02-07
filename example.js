@@ -12,12 +12,16 @@ server.connection({
 server.register({
     register: hapiSwaggered,
     options: {
+        //cache: false,
+        stripPrefix: '/api',
+        responseValidation: false,
         descriptions: {
             'foobar': 'Example foobar description'
         },
         info: {
             title: 'Example API',
-            description: 'Tiny hapi-swaggered example'
+            description: 'Powered by node, hapi, joi, hapi-swaggered, hapi-swaggered-ui and swagger-ui',
+            version: '1.0'
         }
     }
 }, {
@@ -37,8 +41,10 @@ server.register({
         title: 'Example API',
         authorization: {
             field: 'apiKey',
-            scope: 'query' // header works as well
+            scope: 'query', // header works as well
             // valuePrefix: 'bearer '// prefix incase
+            defaultValue: 'demoKey',
+            placeholder: 'Enter your apiKey here'
         }
     }
 }, {
@@ -62,7 +68,7 @@ server.route({
 });
 
 server.route({
-    path: '/foobar/test',
+    path: '/api/foobar/test',
     method: 'GET',
     config: {
         tags: ['api'],
@@ -75,7 +81,7 @@ server.route({
 });
 
 server.route({
-    path: '/foobar/{foo}/{bar}',
+    path: '/api/foobar/{foo}/{bar}',
     method: 'GET',
     config: {
         tags: ['api'],
