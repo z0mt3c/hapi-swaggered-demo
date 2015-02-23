@@ -99,7 +99,7 @@ server.route({
 
 server.route({
     method: 'POST',
-    path: '/test/fileUpload',
+    path: '/api/test/fileUpload',
     config: {
         tags: ['api'],
         validate: {
