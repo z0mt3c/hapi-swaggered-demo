@@ -13,9 +13,14 @@
     "lodash": "*",
     "winston": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^3.6.1"
+  },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.32"
+  },
+  "scripts": {
+    "test": "standard"
   },
   "main": "example.js"
 }
