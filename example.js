@@ -115,6 +115,15 @@ server.route({
   }
 })
 
+server.register({
+  register: require('./plugins/info'),
+  options: {}
+}, { routes: { prefix: '/api/version' }}, function (error) {
+  if (error) {
+    throw error
+  }
+})
+
 server.start(function () {
   console.log('started on http://localhost:8000')
 })

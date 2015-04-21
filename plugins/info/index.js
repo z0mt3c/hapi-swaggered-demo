@@ -11,7 +11,7 @@ exports.register = function (plugin, options, next) {
       },
       response: {
         schema: Joi.object({
-          primitiveArray: Joi.array().includes(Joi.string()).optional().description('primitiveArray'),
+          primitiveArray: Joi.array().items(Joi.string()).optional().description('primitiveArray'),
           skip: Joi.number().optional().default(0).description('Result offset'),
           limit: Joi.number().optional().default(10).description('Limit of entries')
         })
@@ -25,13 +25,30 @@ exports.register = function (plugin, options, next) {
     config: {
       tags: ['api', 'test'],
       validate: {
-        payload: Joi.array().includes(Joi.string())
+        payload: Joi.array().items(Joi.string())
       },
       handler: function (request, reply) {
         reply([ 'string1', 'string2' ])
       },
       response: {
-        schema: Joi.array().includes(Joi.string())
+        schema: Joi.array().items(Joi.string())
+      }
+    }
+  })
+
+  plugin.route({
+    method: '*',
+    path: '/version/wildcard/route',
+    config: {
+      tags: ['api', 'test'],
+      validate: {
+        query: Joi.object({ name: Joi.string() })
+      },
+      handler: function (request, reply) {
+        reply([ 'string1', 'string2' ])
+      },
+      response: {
+        schema: Joi.array().items(Joi.string())
       }
     }
   })
@@ -42,7 +59,7 @@ exports.register = function (plugin, options, next) {
     config: {
       tags: ['api'],
       validate: {
-        payload: Joi.array().includes(Joi.object().keys({ name: Joi.string() }))
+        payload: Joi.array().items(Joi.object().keys({ name: Joi.string() }))
       },
       handler: function (request, reply) {
         reply([
@@ -51,7 +68,49 @@ exports.register = function (plugin, options, next) {
         ])
       },
       response: {
-        schema: Joi.array().includes(Joi.object().keys({ name: Joi.string() }))
+        schema: Joi.array().items(Joi.object().keys({ name: Joi.string() }))
+      }
+    }
+  })
+
+  plugin.route({
+    method: 'POST',
+    path: '/version/any',
+    config: {
+      tags: ['api'],
+      validate: {
+        payload: Joi.any(),
+        query: Joi.any()
+      },
+      handler: function (request, reply) {
+        reply([
+          { name: 'string1' },
+          { name: 'string2' }
+        ])
+      },
+      response: {
+        schema: Joi.any()
+      }
+    }
+  })
+
+  plugin.route({
+    method: 'POST',
+    path: '/version/any/2',
+    config: {
+      tags: ['api'],
+      validate: {
+        payload: Joi.object({ test: Joi.any() }),
+        query: Joi.object({ test: Joi.any() })
+      },
+      handler: function (request, reply) {
+        reply([
+          { name: 'string1' },
+          { name: 'string2' }
+        ])
+      },
+      response: {
+        schema: Joi.object({ any: Joi.any() })
       }
     }
   })
@@ -100,7 +159,7 @@ exports.register = function (plugin, options, next) {
       tags: ['api'],
       validate: {
         params: {
-          test: Joi.array().includes(Joi.string()).required()
+          test: Joi.array().items(Joi.string()).required()
         }
       },
       handler: function (request, reply) {
@@ -115,7 +174,7 @@ exports.register = function (plugin, options, next) {
     config: {
       tags: ['api'],
       validate: {
-        payload: Joi.object().keys({ name: Joi.string(), test: Joi.object().keys({ age: Joi.number() }), file: Joi.any().options({ swaggerType: 'file' }) })
+        payload: Joi.object().keys({ name: Joi.string(), test: Joi.object().keys({ age: Joi.number() }), file: Joi.any().meta({ swaggerType: 'file' }) })
       },
       handler: function (request, reply) {
         console.log(request.payload)
