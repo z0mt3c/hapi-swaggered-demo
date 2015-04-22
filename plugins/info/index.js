@@ -46,9 +46,6 @@ exports.register = function (plugin, options, next) {
       },
       handler: function (request, reply) {
         reply([ 'string1', 'string2' ])
-      },
-      response: {
-        schema: Joi.array().items(Joi.string())
       }
     }
   })

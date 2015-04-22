@@ -14,7 +14,10 @@
     "winston": "*"
   },
   "devDependencies": {
-    "standard": "^3.6.1"
+    "code": "^1.4.0",
+    "lab": "^5.6.1",
+    "standard": "^3.6.1",
+    "swagger-tools": "^0.8.6"
   },
   "engines": {
     "node": ">=0.10.32"

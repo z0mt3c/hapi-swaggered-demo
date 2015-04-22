@@ -3,9 +3,9 @@ var Joi = require('joi')
 var hapiSwaggered = require('hapi-swaggered')
 var hapiSwaggeredUi = require('hapi-swaggered-ui')
 
-var server = new Hapi.Server()
+var server = module.exports = new Hapi.Server()
 server.connection({
-  port: 8000,
+  port: process.env.PORT || 8000,
   labels: ['api']
 })
 
@@ -111,6 +111,51 @@ server.route({
     payload: {
       allow: 'multipart/form-data',
       output: 'data'
+    }
+  }
+})
+
+server.route({
+  method: 'GET',
+  path: '/api/responses/array',
+  config: {
+    tags: ['api', 'response'],
+    validate: {
+      query: Joi.object().keys({ name: Joi.string() })
+    },
+    handler: function (request, reply) {
+      reply({ name: 'test' })
+    },
+    response: {
+      schema: Joi.array().items(Joi.string().description('name')).description('test'),
+      status: {
+        500: Joi.array().items(Joi.string().description('name')).description('test'),
+        501: Joi.array().description('test1'),
+        502: Joi.array().items(Joi.number().integer()).description('num'),
+        503: Joi.array().items(Joi.object({ name: Joi.string() }).meta({className: 'TestModel'})).description('num')
+      }
+    }
+  }
+})
+
+server.route({
+  method: 'GET',
+  path: '/api/responses/primitive',
+  config: {
+    tags: ['api', 'response'],
+    validate: {
+      query: Joi.object().keys({ name: Joi.string() })
+    },
+    handler: function (request, reply) {
+      reply({ name: 'test' })
+    },
+    response: {
+      schema: Joi.string().description('test'),
+      status: {
+        500: Joi.string().description('test'),
+        501: Joi.number().description('number!'),
+        502: Joi.number().description('integer!')
+      }
     }
   }
 })
