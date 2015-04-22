@@ -6,7 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "hapi": "8.x.x",
-    "hapi-swaggered": "*",
+    "hapi-swaggered": ">=2.0.0-alpha.5",
     "hapi-swaggered-ui": "*",
     "hoek": "*",
     "joi": "*",
