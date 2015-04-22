@@ -171,10 +171,13 @@ exports.register = function (plugin, options, next) {
     config: {
       tags: ['api'],
       validate: {
-        payload: Joi.object().keys({ name: Joi.string(), test: Joi.object().keys({ age: Joi.number() }), file: Joi.any().meta({ swaggerType: 'file' }) })
+        payload: Joi.object().keys({
+          name: Joi.string(),
+          test: Joi.object().keys({ age: Joi.number() }),
+          file: Joi.any().meta({ swaggerType: 'file' })
+        })
       },
       handler: function (request, reply) {
-        console.log(request.payload)
         reply({ name: request.payload.name })
       },
       payload: {

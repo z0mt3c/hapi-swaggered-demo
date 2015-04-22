@@ -20,6 +20,9 @@ describe('init', function () {
       v2.validate(cleaned, function (error, result) {
         expect(error).to.not.exist()
         expect(result).to.exist()
+        if (result.errors.length > 0) {
+          console.log(JSON.stringify(cleaned, null, '  '))
+        }
         expect(result.errors).to.deep.equal([])
       })
       done()

@@ -17,7 +17,7 @@ server.connection({
 server.register({
   register: hapiSwaggered,
   options: {
-    // cache: false,
+    cache: false,
     stripPrefix: '/api',
     responseValidation: false,
     descriptions: {
@@ -135,7 +135,7 @@ server.route({
       schema: Joi.array().items(Joi.string().description('name')).description('test'),
       status: {
         500: Joi.array().items(Joi.string().description('name')).description('test'),
-        501: Joi.array().description('test1'),
+        // Produces invalid schema due to missing array items: 501: Joi.array().description('test1'),
         502: Joi.array().items(Joi.number().integer()).description('num'),
         503: Joi.array().items(Joi.object({ name: Joi.string() }).meta({className: 'TestModel'})).description('num')
       }
