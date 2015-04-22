@@ -6,7 +6,12 @@ var hapiSwaggeredUi = require('hapi-swaggered-ui')
 var server = module.exports = new Hapi.Server()
 server.connection({
   port: process.env.PORT || 8000,
-  labels: ['api']
+  labels: ['api'],
+  routes: {
+    json: {
+      space: 2
+    }
+  }
 })
 
 server.register({
