@@ -23,7 +23,7 @@
     "node": ">=0.10.32"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard && lab"
   },
   "main": "example.js"
 }
