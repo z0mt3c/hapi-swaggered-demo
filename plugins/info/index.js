@@ -201,6 +201,32 @@ exports.register = function (plugin, options, next) {
     }
   })
 
+  plugin.route({
+    method: 'POST',
+    path: '/payload/primitive/string',
+    config: {
+      tags: ['api', 'response', 'primitive'],
+      validate: {payload: Joi.string().description('string!')},
+      response: {schema: Joi.string().description('string!')},
+      handler: function (request, reply) {
+        reply(require('../../package.json'))
+      }
+    }
+  })
+
+  plugin.route({
+    method: 'POST',
+    path: '/payload/primitive/number',
+    config: {
+      tags: ['api', 'response', 'primitive'],
+      validate: {payload: Joi.number().description('number!')},
+      response: {schema: Joi.number().description('number!')},
+      handler: function (request, reply) {
+        reply(require('../../package.json'))
+      }
+    }
+  })
+
   next()
 }
 
