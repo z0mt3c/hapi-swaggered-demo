@@ -19,7 +19,7 @@ server.register({
   options: {
     cache: false,
     stripPrefix: '/api',
-    responseValidation: false,
+    responseValidation: true,
     tags: {
       '/foobar': 'Example foobar description'
     },
