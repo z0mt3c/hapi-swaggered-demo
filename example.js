@@ -103,15 +103,18 @@ server.route({
 
 server.route({
   method: 'POST',
-  path: '/api/test/fileUpload',
+  path: '/api/file/upload',
   config: {
-    tags: ['api'],
+    tags: ['api', 'file'],
     validate: {
-      payload: Joi.object().keys({ name: Joi.string(), file: Joi.any().meta({ swaggerType: 'file' }) })
+      payload: Joi.object({
+        name: Joi.string(),
+        file: Joi.object().meta({ swaggerType: 'file' })
+      })
     },
     handler: function (request, reply) {
       // handle file upload as specified in payload.output
-      reply({ name: request.payload.name })
+      reply(request.payload)
     },
     payload: {
       allow: 'multipart/form-data',
