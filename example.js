@@ -20,8 +20,8 @@ server.register({
     cache: false,
     stripPrefix: '/api',
     responseValidation: false,
-    descriptions: {
-      'foobar': 'Example foobar description'
+    tags: {
+      '/foobar': 'Example foobar description'
     },
     info: {
       title: 'Example API',
