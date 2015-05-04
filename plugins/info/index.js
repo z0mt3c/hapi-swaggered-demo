@@ -37,6 +37,23 @@ exports.register = function (plugin, options, next) {
   })
 
   plugin.route({
+    method: 'POST',
+    path: '/version/array/withouttype',
+    config: {
+      tags: ['api', 'test'],
+      validate: {
+        payload: Joi.array()
+      },
+      handler: function (request, reply) {
+        reply([])
+      },
+      response: {
+        schema: Joi.array()
+      }
+    }
+  })
+
+  plugin.route({
     method: '*',
     path: '/version/wildcard/route',
     config: {
