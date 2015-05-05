@@ -1,5 +1,5 @@
 {
-  "name": "hapi-server",
+  "name": "hapi-swaggered-demo",
   "version": "1.0.0",
   "author": "Timo Behrmann",
   "description": "Yet another hapi server",
@@ -25,5 +25,25 @@
   "scripts": {
     "test": "standard && lab"
   },
-  "main": "example.js"
+  "main": "example.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z0mt3c/hapi-swaggered-demo.git"
+  },
+  "keywords": [
+    "hapi",
+    "hapi-swaggered",
+    "hapi-swaggered-ui",
+    "swagger-ui",
+    "swagger",
+    "demo",
+    "example"
+  ],
+  "bugs": {
+    "url": "https://github.com/z0mt3c/hapi-swaggered-demo/issues"
+  },
+  "homepage": "https://github.com/z0mt3c/hapi-swaggered-demo#readme"
 }

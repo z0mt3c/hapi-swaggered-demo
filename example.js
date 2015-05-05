@@ -20,6 +20,10 @@ server.register({
     cache: false,
     stripPrefix: '/api',
     responseValidation: true,
+    tagging: {
+      mode: 'path',
+      pathLevel: 2
+    },
     tags: {
       '/foobar': 'Example foobar description'
     },
@@ -114,7 +118,28 @@ server.route({
     },
     handler: function (request, reply) {
       // handle file upload as specified in payload.output
-      reply(request.payload)
+      reply({})
+    },
+    payload: {
+      allow: 'multipart/form-data',
+      output: 'data'
+    }
+  }
+})
+
+server.route({
+  method: 'POST',
+  path: '/api/form-data',
+  config: {
+    tags: ['api', 'file'],
+    validate: {
+      payload: Joi.object({
+        name: Joi.string()
+      })
+    },
+    handler: function (request, reply) {
+      // handle file upload as specified in payload.output
+      reply({})
     },
     payload: {
       allow: 'multipart/form-data',

@@ -244,6 +244,62 @@ exports.register = function (plugin, options, next) {
     }
   })
 
+  plugin.route({
+    method: 'GET',
+    path: '/type/string',
+    config: {
+      tags: ['api', 'affiliate'],
+      plugins: {
+        'hapi-swaggered': {
+          produces: ['text/plain'],
+          responses: {
+            default: {description: 'bla', type: 'string'},
+            200: {description: 'bla', type: 'string'}
+          }
+        }
+      },
+      handler: function (request, reply) {
+        reply('test').type('text/plain')
+      }
+    }
+  })
+
+/*
+  plugin.route({
+    method: 'GET',
+    path: '/type/pdf',
+    config: {
+      tags: ['api', 'affiliate'],
+      plugins: {
+        'hapi-swaggered': { produces: ['application/pdf'] }
+      },
+      handler: function (request, reply) {
+        reply({}).type('application/pdf')
+      }
+    }
+  })
+
+  plugin.route({
+    method: 'GET',
+    path: '/type/pdf/2',
+    config: {
+      tags: ['api', 'pdf'],
+      plugins: {
+        'hapi-swaggered': {
+          responses: {
+            default: {description: 'bla', type: 'file'},
+            200: {description: 'bla', type: 'file'}
+          },
+          produces: ['application/pdf']
+        }
+      },
+      handler: function (request, reply) {
+        reply({}).type('application/pdf')
+      }
+    }
+  })
+*/
+
   next()
 }
 
