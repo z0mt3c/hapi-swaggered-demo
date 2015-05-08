@@ -22,10 +22,10 @@ server.register({
     responseValidation: true,
     tagging: {
       mode: 'path',
-      pathLevel: 2
+      pathLevel: 1
     },
     tags: {
-      '/foobar': 'Example foobar description'
+      'foobar/test': 'Example foobar description'
     },
     info: {
       title: 'Example API',
@@ -189,6 +189,37 @@ server.route({
         501: Joi.number().description('number!'),
         502: Joi.number().description('integer!')
       }
+    }
+  }
+})
+
+server.route({
+  path: '/api/array/of/array/{foo}/{bar}',
+  method: 'POST',
+  config: {
+    tags: ['api'],
+    validate: {
+      params: {
+        foo: Joi.string().required().description('test'),
+        bar: Joi.object({
+          a: Joi.object({
+            test: Joi.number().integer().required()
+          }).required(),
+          b: Joi.array().items(Joi.array().items(Joi.number()).length(2)).min(1).required()
+        }).meta({swaggerType: 'string'}).description('Lorem').required()
+      },
+      payload: {
+        foo: Joi.string().required().description('test'),
+        bar: Joi.object({
+          a: Joi.object({
+            test: Joi.number().integer().required()
+          }).required(),
+          b: Joi.array().items(Joi.array().items(Joi.number()).length(2)).min(1).required()
+        }).meta({className: 'Problem'}).required()
+      }
+    },
+    handler: function (request, reply) {
+      reply(request.params)
     }
   }
 })
