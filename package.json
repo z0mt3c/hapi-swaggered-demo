@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "code": "^1.4.0",
-    "lab": "^5.7.0",
-    "standard": "^3.7.2",
+    "lab": "^5.8.0",
+    "standard": "^3.7.3",
     "swagger-tools": "^0.8.6"
   },
   "engines": {
