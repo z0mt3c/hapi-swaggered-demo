@@ -54,6 +54,9 @@ server.register({
       // valuePrefix: 'bearer '// prefix incase
       defaultValue: 'demoKey',
       placeholder: 'Enter your apiKey here'
+    },
+    swaggerOptions: {
+      validatorUrl: false
     }
   }
 }, {
