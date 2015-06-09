@@ -56,7 +56,7 @@ server.register({
       placeholder: 'Enter your apiKey here'
     },
     swaggerOptions: {
-      validatorUrl: false
+      validatorUrl: null
     }
   }
 }, {
@@ -100,6 +100,23 @@ server.route({
       params: {
         foo: Joi.string().required().description('test'),
         bar: Joi.string().required()
+      }
+    },
+    handler: function (request, reply) {
+      reply({})
+    }
+  }
+})
+
+server.route({
+  path: '/api/date',
+  method: 'GET',
+  config: {
+    tags: ['api'],
+    validate: {
+      query: {
+        foo: Joi.string().required().description('test'),
+        test: Joi.date().required().meta({swaggerType: 'string', format: 'date-time'})
       }
     },
     handler: function (request, reply) {
