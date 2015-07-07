@@ -7,6 +7,9 @@ var server = module.exports = new Hapi.Server()
 server.connection({
   port: process.env.PORT || 8000,
   labels: ['api'],
+  router: {
+    stripTrailingSlash: false
+  },
   routes: {
     json: {
       space: 2
