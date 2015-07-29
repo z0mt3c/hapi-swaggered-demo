@@ -217,6 +217,55 @@ server.route({
 })
 
 server.route({
+  method: 'POST',
+  path: '/api/issue16/test',
+  config: {
+    tags: ['api', 'issue16'],
+    validate: {
+      payload: Joi.object({
+        playerIds: Joi.array().items(Joi.string().guid()).required()
+      })
+    },
+    handler: function (request, reply) {
+      reply({ name: 'test' })
+    }
+  }
+})
+
+server.route({
+  method: 'DELETE',
+  path: '/api/issue16/test2',
+  config: {
+    tags: ['api', 'issue16'],
+    validate: {
+      payload: Joi.object({
+        playerIds: Joi.array().items(Joi.string().guid()).required()
+      })
+    },
+    handler: function (request, reply) {
+      reply({ name: 'test' })
+    }
+  }
+})
+
+server.route({
+  method: 'POST',
+  path: '/api/issue38/test',
+  config: {
+    tags: ['api', 'issue38'],
+    validate: {
+      payload: Joi.object({
+        player: Joi.object().max(1),
+        test2: Joi.array().items(Joi.object()).max(1)
+      })
+    },
+    handler: function (request, reply) {
+      reply({ name: 'test' })
+    }
+  }
+})
+
+server.route({
   path: '/api/array/of/array/{foo}/{bar}',
   method: 'POST',
   config: {
