@@ -2,6 +2,8 @@ var Hapi = require('hapi')
 var Joi = require('joi')
 var hapiSwaggered = require('hapi-swaggered')
 var hapiSwaggeredUi = require('hapi-swaggered-ui')
+var inert = require('inert')
+var vision = require('vision')
 
 var server = module.exports = new Hapi.Server()
 server.connection({
@@ -16,6 +18,8 @@ server.connection({
     }
   }
 })
+
+server.register([inert, vision], function () {})
 
 server.register({
   register: hapiSwaggered,
@@ -299,7 +303,7 @@ server.route({
 server.register({
   register: require('./plugins/info'),
   options: {}
-}, { routes: { prefix: '/api/version' }}, function (error) {
+}, {routes: { prefix: '/api/version' }}, function (error) {
   if (error) {
     throw error
   }
