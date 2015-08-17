@@ -9,10 +9,10 @@
     "hapi-swaggered": "*",
     "hapi-swaggered-ui": "*",
     "hoek": "*",
-    "inert": "^3.0.1",
+    "inert": "*",
     "joi": "*",
     "lodash": "*",
-    "vision": "^2.0.1",
+    "vision": "*",
     "winston": "*"
   },
   "devDependencies": {

@@ -1,16 +1,12 @@
 var Hapi = require('hapi')
 var Joi = require('joi')
-var hapiSwaggered = require('hapi-swaggered')
-var hapiSwaggeredUi = require('hapi-swaggered-ui')
-var inert = require('inert')
-var vision = require('vision')
 
 var server = module.exports = new Hapi.Server()
 server.connection({
   port: process.env.PORT || 8000,
   labels: ['api'],
   router: {
-    stripTrailingSlash: false
+    stripTrailingSlash: true
   },
   routes: {
     json: {
@@ -19,59 +15,48 @@ server.connection({
   }
 })
 
-server.register([inert, vision], function () {})
-
-server.register({
-  register: hapiSwaggered,
-  options: {
-    cache: false,
-    stripPrefix: '/api',
-    responseValidation: true,
-    tagging: {
-      mode: 'path',
-      pathLevel: 1
-    },
-    tags: {
-      'foobar/test': 'Example foobar description'
-    },
-    info: {
+server.register([
+  require('inert'),
+  require('vision'),
+  {
+    register: require('hapi-swaggered'),
+    options: {
+      cache: false,
+      stripPrefix: '/api',
+      responseValidation: true,
+      tagging: {
+        mode: 'path',
+        pathLevel: 1
+      },
+      tags: {
+        'foobar/test': 'Example foobar description'
+      },
+      info: {
+        title: 'Example API',
+        description: 'Powered by node, hapi, joi, hapi-swaggered, hapi-swaggered-ui and swagger-ui',
+        version: '1.0'
+      }
+    }
+  },
+  {
+    register: require('hapi-swaggered-ui'),
+    options: {
       title: 'Example API',
-      description: 'Powered by node, hapi, joi, hapi-swaggered, hapi-swaggered-ui and swagger-ui',
-      version: '1.0'
+      path: '/docs',
+      authorization: {
+        field: 'apiKey',
+        scope: 'query', // header works as well
+        // valuePrefix: 'bearer '// prefix incase
+        defaultValue: 'demoKey',
+        placeholder: 'Enter your apiKey here'
+      },
+      swaggerOptions: {
+        validatorUrl: null
+      }
     }
-  }
-}, {
-  select: 'api',
-  routes: {
-    prefix: '/swagger'
-  }
-}, function (err) {
-  if (err) {
-    throw err
-  }
-})
-
-server.register({
-  register: hapiSwaggeredUi,
-  options: {
-    title: 'Example API',
-    authorization: {
-      field: 'apiKey',
-      scope: 'query', // header works as well
-      // valuePrefix: 'bearer '// prefix incase
-      defaultValue: 'demoKey',
-      placeholder: 'Enter your apiKey here'
-    },
-    swaggerOptions: {
-      validatorUrl: null
-    }
-  }
-}, {
-  select: 'api',
-  routes: {
-    prefix: '/docs'
-  }
-}, function (err) {
+  }], {
+    select: 'api'
+  }, function (err) {
   if (err) {
     throw err
   }

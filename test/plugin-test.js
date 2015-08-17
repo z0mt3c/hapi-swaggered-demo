@@ -14,7 +14,7 @@ var v2 = swaggerTools.specs.v2
 
 describe('init', function () {
   it('feed', function (done) {
-    server.inject('/swagger/swagger', function (res) {
+    server.inject('/swagger', function (res) {
       expect(res.result).to.exist()
       var cleaned = JSON.parse(JSON.stringify(res.result))
       v2.validate(cleaned, function (error, result) {
