@@ -57,10 +57,10 @@ server.register([
   }], {
     select: 'api'
   }, function (err) {
-  if (err) {
-    throw err
-  }
-})
+    if (err) {
+      throw err
+    }
+  })
 
 server.route({
   path: '/',
