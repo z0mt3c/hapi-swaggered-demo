@@ -5,7 +5,7 @@
   "description": "Yet another hapi server",
   "license": "MIT",
   "dependencies": {
-    "hapi": "11.x.x",
+    "hapi": "12.1.0",
     "hapi-swaggered": "*",
     "hapi-swaggered-ui": "*",
     "hoek": "*",
@@ -16,8 +16,8 @@
     "winston": "*"
   },
   "devDependencies": {
-    "code": "^1.5.0",
-    "lab": "^6.2.0",
+    "code": "^2.1.0",
+    "lab": "^8.2.0",
     "standard": "^5.3.1",
     "swagger-tools": "^0.9.7"
   },
