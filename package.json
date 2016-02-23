@@ -19,7 +19,7 @@
     "code": "^2.1.0",
     "lab": "^9.0.0",
     "standard": "^6.0.3",
-    "swagger-tools": "^0.9.7"
+    "swagger-tools": "^0.10.0"
   },
   "engines": {
     "node": ">=0.12.0"
