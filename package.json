@@ -22,10 +22,11 @@
     "swagger-tools": "^0.10.0"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=4"
   },
   "scripts": {
-    "test": "standard && lab"
+    "test": "standard && lab",
+    "start": "node example.js"
   },
   "main": "example.js",
   "directories": {
