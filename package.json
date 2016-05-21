@@ -16,7 +16,7 @@
     "winston": "*"
   },
   "devDependencies": {
-    "code": "^2.1.0",
+    "code": "^3.0.0",
     "lab": "^10.1.0",
     "standard": "^6.0.3",
     "swagger-tools": "^0.10.0"
