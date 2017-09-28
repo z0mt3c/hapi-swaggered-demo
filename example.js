@@ -29,7 +29,7 @@ server.register([
         pathLevel: 1
       },
       tags: {
-        'foobar/test': 'Example foobar description'
+        'foobar': 'Example foobar description'
       },
       info: {
         title: 'Example API',
@@ -230,6 +230,48 @@ server.route({
       payload: Joi.object({
         playerIds: Joi.array().items(Joi.string().guid()).required()
       })
+    },
+    handler: function (request, reply) {
+      reply({ name: 'test' })
+    }
+  }
+})
+
+var kindSeparator = Joi.object({
+  pagingKind: Joi.string().required()['default']('separator').example('separator').description('Specifies the kind of page.').valid('separator')
+}).description('Instruction to render a page separator').meta({
+  className: 'PaginationPageSeparator'
+}).options({
+  allowUnknown: true,
+  stripUnknown: true
+})
+
+var kindPage = Joi.object({
+  pagingKind: Joi.string().required()['default']('page').example('page').description('Specifies the kind of page.').valid(['page']),
+  pageNumber: Joi.number().integer()['default'](0).example(0).description('The zero based page number of this page.').required(),
+  pageNumberDisplay: Joi.string()['default']('1').example('1').description('The one based page number as a string, useful for displaying to the end user.').required(),
+  active: Joi.boolean()['default'](false).example(true).description('Boolean that indicates that this item is the currently active page.').required()
+}).description('The description of a single page').meta({
+  className: 'PaginationPagePage'
+}).options({
+  allowUnknown: true,
+  stripUnknown: true
+})
+
+var schema = Joi.alternatives(kindPage, kindSeparator).description('The description of a single page').meta({
+  className: 'PaginationPage'
+}).options({
+  allowUnknown: true,
+  stripUnknown: true
+})
+
+server.route({
+  method: 'POST',
+  path: '/api/alternatives',
+  config: {
+    tags: ['api', 'alternatives'],
+    validate: {
+      payload: schema
     },
     handler: function (request, reply) {
       reply({ name: 'test' })
