@@ -1,6 +1,6 @@
 {
   "name": "hapi-swaggered-demo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Timo Behrmann",
   "description": "Yet another hapi server",
   "license": "MIT",
