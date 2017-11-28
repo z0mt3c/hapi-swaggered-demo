@@ -1,7 +1,7 @@
 const Hapi = require('hapi')
 const Joi = require('joi')
 
-const server = Hapi.server({
+const server = module.exports = Hapi.server({
   port: 8000,
   load: { sampleInterval: 1000 }
 })
