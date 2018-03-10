@@ -27,6 +27,14 @@ const server = module.exports = Hapi.server({
           title: 'Example API',
           description: 'Powered by node, hapi, joi, hapi-swaggered, hapi-swaggered-ui and swagger-ui',
           version: '1.0'
+        },
+        securityDefinitions: {
+          api_key: {
+            'type': 'apiKey',
+            'description': 'waaah',
+            'name': 'api_key',
+            'in': 'header'
+          }
         }
       }
     },
@@ -35,13 +43,6 @@ const server = module.exports = Hapi.server({
       options: {
         title: 'Example API',
         path: '/docs',
-        authorization: {
-          field: 'apiKey',
-          scope: 'query', // header works as well
-          // valuePrefix: 'bearer '// prefix incase
-          defaultValue: 'demoKey',
-          placeholder: 'Enter your apiKey here'
-        },
         swaggerOptions: {
           validatorUrl: null
         }
@@ -52,8 +53,8 @@ const server = module.exports = Hapi.server({
   server.route({
     path: '/',
     method: 'GET',
-    handler: function (request, reply) {
-      reply.redirect('/docs')
+    handler: function (request, h) {
+      return h.response().redirect('/docs')
     }
   })
 
@@ -65,7 +66,7 @@ const server = module.exports = Hapi.server({
       description: 'My route description',
       notes: 'My route notes',
       handler: function (request, reply) {
-        reply({})
+        return {}
       }
     }
   })
@@ -82,7 +83,7 @@ const server = module.exports = Hapi.server({
         }
       },
       handler: function (request, reply) {
-        reply({})
+        return {}
       }
     }
   })
@@ -92,6 +93,13 @@ const server = module.exports = Hapi.server({
     method: 'GET',
     config: {
       tags: ['api'],
+      plugins: {
+        'hapi-swaggered': {
+          security: [
+            { '#/securityDefinitions/api_key': [] }
+          ]
+        }
+      },
       validate: {
         query: {
           foo: Joi.string().required().description('test'),
@@ -99,7 +107,7 @@ const server = module.exports = Hapi.server({
         }
       },
       handler: function (request, reply) {
-        reply({})
+        return {}
       }
     }
   })
@@ -117,7 +125,7 @@ const server = module.exports = Hapi.server({
       },
       handler: function (request, reply) {
       // handle file upload as specified in payload.output
-        reply({})
+        return {}
       },
       payload: {
         allow: 'multipart/form-data',
@@ -138,7 +146,7 @@ const server = module.exports = Hapi.server({
       },
       handler: function (request, reply) {
       // handle file upload as specified in payload.output
-        reply({})
+        return {}
       },
       payload: {
         allow: 'multipart/form-data',
@@ -156,7 +164,7 @@ const server = module.exports = Hapi.server({
         query: Joi.object().keys({ name: Joi.string() })
       },
       handler: function (request, reply) {
-        reply({ name: 'test' })
+        return { name: 'test' }
       },
       response: {
         schema: Joi.array().items(Joi.string().description('name')).description('test'),
@@ -179,7 +187,7 @@ const server = module.exports = Hapi.server({
         query: Joi.object().keys({ name: Joi.string() })
       },
       handler: function (request, reply) {
-        reply({ name: 'test' })
+        return { name: 'test' }
       },
       response: {
         schema: Joi.string().description('test'),
@@ -203,7 +211,7 @@ const server = module.exports = Hapi.server({
         })
       },
       handler: function (request, reply) {
-        reply({ name: 'test' })
+        return { name: 'test' }
       }
     }
   })
@@ -219,7 +227,7 @@ const server = module.exports = Hapi.server({
         })
       },
       handler: function (request, reply) {
-        reply({ name: 'test' })
+        return { name: 'test' }
       }
     }
   })
@@ -261,7 +269,7 @@ const server = module.exports = Hapi.server({
         payload: schema
       },
       handler: function (request, reply) {
-        reply({ name: 'test' })
+        return { name: 'test' }
       }
     }
   })
@@ -278,7 +286,7 @@ const server = module.exports = Hapi.server({
         })
       },
       handler: function (request, reply) {
-        reply({ name: 'test' })
+        return { name: 'test' }
       }
     }
   })
@@ -291,12 +299,7 @@ const server = module.exports = Hapi.server({
       validate: {
         params: {
           foo: Joi.string().required().description('test'),
-          bar: Joi.object({
-            a: Joi.object({
-              test: Joi.number().integer().required()
-            }).required(),
-            b: Joi.array().items(Joi.array().items(Joi.number()).length(2)).min(1).required()
-          }).meta({swaggerType: 'string'}).description('Lorem').required()
+          bar: Joi.string().required().description('test')
         },
         payload: {
           foo: Joi.string().required().description('test'),
@@ -309,7 +312,7 @@ const server = module.exports = Hapi.server({
         }
       },
       handler: function (request, reply) {
-        reply(request.params)
+        return request.params
       }
     }
   })
