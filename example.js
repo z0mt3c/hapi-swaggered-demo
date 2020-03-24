@@ -30,10 +30,10 @@ const server = module.exports = Hapi.server({
         },
         securityDefinitions: {
           api_key: {
-            'type': 'apiKey',
-            'description': 'waaah',
-            'name': 'api_key',
-            'in': 'header'
+            type: 'apiKey',
+            description: 'waaah',
+            name: 'api_key',
+            in: 'header'
           }
         }
       }
@@ -103,7 +103,7 @@ const server = module.exports = Hapi.server({
       validate: {
         query: {
           foo: Joi.string().required().description('test'),
-          test: Joi.date().required().meta({swaggerType: 'string', format: 'date-time'})
+          test: Joi.date().required().meta({ swaggerType: 'string', format: 'date-time' })
         }
       },
       handler: function (request, reply) {
@@ -170,9 +170,9 @@ const server = module.exports = Hapi.server({
         schema: Joi.array().items(Joi.string().description('name')).description('test'),
         status: {
           500: Joi.array().items(Joi.string().description('name')).description('test'),
-        // Produces invalid schema due to missing array items: 501: Joi.array().description('test1'),
+          // Produces invalid schema due to missing array items: 501: Joi.array().description('test1'),
           502: Joi.array().items(Joi.number().integer()).description('num'),
-          503: Joi.array().items(Joi.object({ name: Joi.string() }).meta({className: 'TestModel'})).description('num')
+          503: Joi.array().items(Joi.object({ name: Joi.string() }).meta({ className: 'TestModel' })).description('num')
         }
       }
     }
@@ -233,7 +233,7 @@ const server = module.exports = Hapi.server({
   })
 
   var kindSeparator = Joi.object({
-    pagingKind: Joi.string().required()['default']('separator').example('separator').description('Specifies the kind of page.').valid('separator')
+    pagingKind: Joi.string().required().default('separator').example('separator').description('Specifies the kind of page.').valid('separator')
   }).description('Instruction to render a page separator').meta({
     className: 'PaginationPageSeparator'
   }).options({
@@ -242,10 +242,10 @@ const server = module.exports = Hapi.server({
   })
 
   var kindPage = Joi.object({
-    pagingKind: Joi.string().required()['default']('page').example('page').description('Specifies the kind of page.').valid(['page']),
-    pageNumber: Joi.number().integer()['default'](0).example(0).description('The zero based page number of this page.').required(),
-    pageNumberDisplay: Joi.string()['default']('1').example('1').description('The one based page number as a string, useful for displaying to the end user.').required(),
-    active: Joi.boolean()['default'](false).example(true).description('Boolean that indicates that this item is the currently active page.').required()
+    pagingKind: Joi.string().required().default('page').example('page').description('Specifies the kind of page.').valid(['page']),
+    pageNumber: Joi.number().integer().default(0).example(0).description('The zero based page number of this page.').required(),
+    pageNumberDisplay: Joi.string().default('1').example('1').description('The one based page number as a string, useful for displaying to the end user.').required(),
+    active: Joi.boolean().default(false).example(true).description('Boolean that indicates that this item is the currently active page.').required()
   }).description('The description of a single page').meta({
     className: 'PaginationPagePage'
   }).options({
@@ -308,7 +308,7 @@ const server = module.exports = Hapi.server({
               test: Joi.number().integer().required()
             }).required(),
             b: Joi.array().items(Joi.array().items(Joi.number()).length(2)).min(1).required()
-          }).meta({className: 'Problem'}).required()
+          }).meta({ className: 'Problem' }).required()
         }
       },
       handler: function (request, reply) {

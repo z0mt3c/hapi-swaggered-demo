@@ -28,7 +28,7 @@ exports.register = function (plugin, options, next) {
         payload: Joi.array().items(Joi.string())
       },
       handler: function (request, reply) {
-        reply([ 'string1', 'string2' ])
+        reply(['string1', 'string2'])
       },
       response: {
         schema: Joi.array().items(Joi.string())
@@ -62,7 +62,7 @@ exports.register = function (plugin, options, next) {
         query: Joi.object({ name: Joi.string() })
       },
       handler: function (request, reply) {
-        reply([ 'string1', 'string2' ])
+        reply(['string1', 'string2'])
       }
     }
   })
@@ -223,8 +223,8 @@ exports.register = function (plugin, options, next) {
     path: '/payload/primitive/string',
     config: {
       tags: ['api', 'response', 'primitive'],
-      validate: {payload: Joi.string().description('string!')},
-      response: {schema: Joi.string().description('string!')},
+      validate: { payload: Joi.string().description('string!') },
+      response: { schema: Joi.string().description('string!') },
       handler: function (request, reply) {
         reply(require('../../package.json'))
       }
@@ -236,8 +236,8 @@ exports.register = function (plugin, options, next) {
     path: '/payload/primitive/number',
     config: {
       tags: ['api', 'response', 'primitive'],
-      validate: {payload: Joi.number().description('number!')},
-      response: {schema: Joi.number().description('number!')},
+      validate: { payload: Joi.number().description('number!') },
+      response: { schema: Joi.number().description('number!') },
       handler: function (request, reply) {
         reply(require('../../package.json'))
       }
@@ -253,8 +253,8 @@ exports.register = function (plugin, options, next) {
         'hapi-swaggered': {
           produces: ['text/plain'],
           responses: {
-            default: {description: 'bla', type: 'string'},
-            200: {description: 'bla', type: 'string'}
+            default: { description: 'bla', type: 'string' },
+            200: { description: 'bla', type: 'string' }
           }
         }
       },
@@ -264,7 +264,7 @@ exports.register = function (plugin, options, next) {
     }
   })
 
-/*
+  /*
   plugin.route({
     method: 'GET',
     path: '/type/pdf',

@@ -5,19 +5,19 @@
   "description": "Yet another hapi server",
   "license": "MIT",
   "dependencies": {
-    "hapi": "^17.1.1",
+    "hapi": "^18.1.0",
     "hapi-swaggered": "*",
     "hapi-swaggered-ui": "*",
-    "hoek": "^5.0.2",
+    "hoek": "^6.1.3",
     "inert": "^5.0.1",
-    "joi": "^13.0.2",
+    "joi": "^14.3.1",
     "lodash": "*",
     "vision": "^5.2.0",
-    "winston": "^2.4.0"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "code": "^5.1.2",
-    "lab": "^15.1.2",
+    "lab": "^18.0.2",
     "standard": "*",
     "swagger-tools": "^0.10.3"
   },
@@ -25,7 +25,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "standard && lab",
+    "test": "standard && lab -l",
     "start": "node example.js"
   },
   "main": "example.js",
